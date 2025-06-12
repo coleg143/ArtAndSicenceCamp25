@@ -93,30 +93,22 @@
 
   <div class="section" id="points">
     <h2>Manage Points</h2>
-    <p>Enter your name and the number of points to add or subtract for a team.</p>
-    <ul id="teams">
-      <li>
-        <strong>Team Red</strong><br />
-        <input type="text" placeholder="Your name" class="admin-name" />
-        <input type="number" value="1" min="1" class="points-input" />
-        <button onclick="updatePoints('red', this.parentElement, true)">Add</button>
-        <button onclick="updatePoints('red', this.parentElement, false)">Subtract</button>
-      </li>
-      <li>
-        <strong>Team Blue</strong><br />
-        <input type="text" placeholder="Your name" class="admin-name" />
-        <input type="number" value="1" min="1" class="points-input" />
-        <button onclick="updatePoints('blue', this.parentElement, true)">Add</button>
-        <button onclick="updatePoints('blue', this.parentElement, false)">Subtract</button>
-      </li>
-      <li>
-        <strong>Team Green</strong><br />
-        <input type="text" placeholder="Your name" class="admin-name" />
-        <input type="number" value="1" min="1" class="points-input" />
-        <button onclick="updatePoints('green', this.parentElement, true)">Add</button>
-        <button onclick="updatePoints('green', this.parentElement, false)">Subtract</button>
-      </li>
-    </ul>
+    <p>Enter your name, select the team, choose to add or subtract points, then submit.</p>
+    <input type="text" id="admin-name" placeholder="Your name" /><br />
+    <label for="team-select">Team:</label>
+    <select id="team-select">
+      <option value="red">Team Red</option>
+      <option value="blue">Team Blue</option>
+      <option value="green">Team Green</option>
+    </select>
+    <label for="points-input">Points:</label>
+    <input type="number" id="points-input" value="1" min="1" />
+    <label for="action-select">Action:</label>
+    <select id="action-select">
+      <option value="add">Add</option>
+      <option value="subtract">Subtract</option>
+    </select>
+    <button onclick="submitPoints()">Submit</button>
     <h3>Log</h3>
     <ul id="log"></ul>
   </div>
@@ -152,11 +144,11 @@
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    function updatePoints(team, listItem, add) {
-      const nameInput = listItem.querySelector('.admin-name');
-      const pointsInput = listItem.querySelector('.points-input');
-      const name = nameInput.value.trim();
-      const amount = parseInt(pointsInput.value, 10);
+    function submitPoints() {
+      const name = document.getElementById('admin-name').value.trim();
+      const team = document.getElementById('team-select').value;
+      const amount = parseInt(document.getElementById('points-input').value, 10);
+      const action = document.getElementById('action-select').value;
 
       if (!name) {
         alert('Please enter your name.');
@@ -167,6 +159,7 @@
         return;
       }
 
+      const add = action === 'add';
       scores[team] = add ? scores[team] + amount : scores[team] - amount;
 
       const log = document.getElementById('log');
@@ -174,8 +167,8 @@
       entry.textContent = `${name} ${add ? 'added' : 'subtracted'} ${amount} point${amount === 1 ? '' : 's'} ${add ? 'to' : 'from'} Team ${capitalize(team)}.`;
       log.appendChild(entry);
 
-      nameInput.value = '';
-      pointsInput.value = '1';
+      document.getElementById('admin-name').value = '';
+      document.getElementById('points-input').value = '1';
     }
   </script>
 </body>
