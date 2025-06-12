@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eye Spy Camp Admin</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #38e0ad;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: white;
+      margin: 10px 0 0;
+      text-align: center;
+    }
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: white;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .button {
+      background: white;
+      color: #333;
+      padding: 15px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      margin: 10px 0;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+    }
+    .section {
+      display: none;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 20px;
+    }
+    .section h2, .section h3 {
+      margin-top: 0;
+    }
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      font-size: 1rem;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+    ul {
+      padding-left: 0;
+      list-style: none;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    input[type="number"] {
+      width: 80px;
+      padding: 5px;
+      font-size: 1rem;
+    }
+    .logo {
+      margin-top: 30px;
+      width: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>EYE SPY</h1>
+  <h3>ART & SCIENCE CAMP 2025</h3>
+  <button class="button" onclick="showSection('points')">Manage Points</button>
+  <button class="button" onclick="showSection('schedules')">Team Schedules</button>
+
+  <div class="section" id="points">
+    <h2>Team Points</h2>
+    <ul>
+      <li>Team Red: <input type="number" value="0" /></li>
+      <li>Team Blue: <input type="number" value="0" /></li>
+      <li>Team Green: <input type="number" value="0" /></li>
+    </ul>
+  </div>
+
+  <div class="section" id="schedules">
+    <h2>Daily Schedule</h2>
+    <h3>Team Red</h3>
+    <textarea rows="4">8:00 - Breakfast
+9:00 - Art Class
+10:30 - Science Lab</textarea>
+    <h3>Team Blue</h3>
+    <textarea rows="4">8:00 - Breakfast
+9:00 - Science Lab
+10:30 - Art Class</textarea>
+    <h3>Team Green</h3>
+    <textarea rows="4">8:00 - Breakfast
+9:00 - Outdoor Games
+10:30 - Art Class</textarea>
+  </div>
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Camp_icon.svg/512px-Camp_icon.svg.png" class="logo" alt="Camp logo" />
+
+  <script>
+    function showSection(sectionId) {
+      document.getElementById('points').style.display = 'none';
+      document.getElementById('schedules').style.display = 'none';
+      document.getElementById(sectionId).style.display = 'block';
+    }
+  </script>
+</body>
+</html>
