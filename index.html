@@ -92,12 +92,33 @@
   <button class="button" onclick="showSection('schedules')">Team Schedules</button>
 
   <div class="section" id="points">
-    <h2>Team Points</h2>
-    <ul>
-      <li>Team Red: <input type="number" value="0" /></li>
-      <li>Team Blue: <input type="number" value="0" /></li>
-      <li>Team Green: <input type="number" value="0" /></li>
+    <h2>Manage Points</h2>
+    <p>Enter your name and the number of points to add or subtract for a team.</p>
+    <ul id="teams">
+      <li>
+        <strong>Team Red</strong><br />
+        <input type="text" placeholder="Your name" class="admin-name" />
+        <input type="number" value="1" min="1" class="points-input" />
+        <button onclick="updatePoints('red', this.parentElement, true)">Add</button>
+        <button onclick="updatePoints('red', this.parentElement, false)">Subtract</button>
+      </li>
+      <li>
+        <strong>Team Blue</strong><br />
+        <input type="text" placeholder="Your name" class="admin-name" />
+        <input type="number" value="1" min="1" class="points-input" />
+        <button onclick="updatePoints('blue', this.parentElement, true)">Add</button>
+        <button onclick="updatePoints('blue', this.parentElement, false)">Subtract</button>
+      </li>
+      <li>
+        <strong>Team Green</strong><br />
+        <input type="text" placeholder="Your name" class="admin-name" />
+        <input type="number" value="1" min="1" class="points-input" />
+        <button onclick="updatePoints('green', this.parentElement, true)">Add</button>
+        <button onclick="updatePoints('green', this.parentElement, false)">Subtract</button>
+      </li>
     </ul>
+    <h3>Log</h3>
+    <ul id="log"></ul>
   </div>
 
   <div class="section" id="schedules">
@@ -123,6 +144,38 @@
       document.getElementById('points').style.display = 'none';
       document.getElementById('schedules').style.display = 'none';
       document.getElementById(sectionId).style.display = 'block';
+    }
+
+    const scores = { red: 0, blue: 0, green: 0 };
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function updatePoints(team, listItem, add) {
+      const nameInput = listItem.querySelector('.admin-name');
+      const pointsInput = listItem.querySelector('.points-input');
+      const name = nameInput.value.trim();
+      const amount = parseInt(pointsInput.value, 10);
+
+      if (!name) {
+        alert('Please enter your name.');
+        return;
+      }
+      if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid number of points.');
+        return;
+      }
+
+      scores[team] = add ? scores[team] + amount : scores[team] - amount;
+
+      const log = document.getElementById('log');
+      const entry = document.createElement('li');
+      entry.textContent = `${name} ${add ? 'added' : 'subtracted'} ${amount} point${amount === 1 ? '' : 's'} ${add ? 'to' : 'from'} Team ${capitalize(team)}.`;
+      log.appendChild(entry);
+
+      nameInput.value = '';
+      pointsInput.value = '1';
     }
   </script>
 </body>
